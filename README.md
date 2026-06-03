@@ -1,3 +1,4 @@
+
 # OpsCopilot — AI Operations & Observability Platform
 
 An AI-powered operations copilot that acts as an intelligent assistant for developers and SREs. Replaces manual context-switching between CloudWatch, Grafana, Kibana, and documentation portals with a single conversational interface powered by Claude.
