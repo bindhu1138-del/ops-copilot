@@ -171,18 +171,11 @@ Postmortem Documentation
 ```
 
 
-Replace it with:
-
-```md
 ## 🏗️ System Architecture
 
-The following diagram illustrates the overall architecture and workflow of OpsCopilot. Microsoft Azure AI Foundry (GPT-4.1-mini) serves as the central AI engine, enabling intelligent incident investigation, log analysis, documentation intelligence, and platform assistance.
+The following diagram illustrates the overall architecture and workflow of OpsCopilot. Microsoft Azure AI Foundry (GPT-4.1-mini) serves as the central AI engine powering all AI capabilities across the platform.
 
-<img width="806" height="1922" alt="image" src="https://github.com/user-attachments/assets/84e5b004-b671-4489-8f4a-d290be67e704" />
-
-
-The architecture highlights the interaction between the major application modules and the AI-powered workflow used throughout the platform.
----
+![OpsCopilot Architecture](screenshots/opscopilot_architecture_diagram.png)
 
 ## 🛠️ Technology Stack
 
