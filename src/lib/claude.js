@@ -463,176 +463,336 @@
 
 
 
-// claude.js
+// // claude.js
 
-const GEMINI_MODEL = 'gemini-2.5-flash';
+// const GEMINI_MODEL = 'gemini-2.5-flash';
 
-/**
- * Retry helper for temporary Gemini failures
- */
+// /**
+//  * Retry helper for temporary Gemini failures
+//  */
+// async function fetchWithRetry(url, options, retries = 3) {
+//   let lastResponse = null;
+
+//   for (let i = 0; i < retries; i++) {
+//     try {
+//       const res = await fetch(url, options);
+
+//       if (res.ok) {
+//         return res;
+//       }
+
+//       lastResponse = res;
+
+//       // Retry only for temporary server issues
+//       if (
+//         (res.status === 503 || res.status === 500) &&
+//         i < retries - 1
+//       ) {
+//         const delay = 2000 * (i + 1);
+
+//         console.warn(
+//           `Gemini temporary error (${res.status}). Retrying in ${delay}ms...`
+//         );
+
+//         await new Promise(resolve => setTimeout(resolve, delay));
+//         continue;
+//       }
+
+//       return res;
+//     } catch (err) {
+//       console.error('Network error:', err);
+
+//       if (i < retries - 1) {
+//         const delay = 2000 * (i + 1);
+//         await new Promise(resolve => setTimeout(resolve, delay));
+//         continue;
+//       }
+
+//       throw err;
+//     }
+//   }
+
+//   return lastResponse;
+// }
+
+// /**
+//  * Standard Gemini call
+//  */
+// export async function callClaude({
+//   system,
+//   messages,
+//   maxTokens = 1500,
+// }) {
+//   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+//   if (!apiKey) {
+//     throw new Error(
+//       'VITE_GEMINI_API_KEY not found in .env file'
+//     );
+//   }
+
+//   const prompt = [
+//     system,
+//     ...messages.map(
+//       m =>
+//         `${m.role}: ${
+//           typeof m.content === 'string'
+//             ? m.content
+//             : JSON.stringify(m.content)
+//         }`
+//     ),
+//   ].join('\n\n');
+
+//   const res = await fetchWithRetry(
+//     `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`,
+//     {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({
+//         contents: [
+//           {
+//             parts: [
+//               {
+//                 text: prompt,
+//               },
+//             ],
+//           },
+//         ],
+//         generationConfig: {
+//           maxOutputTokens: maxTokens,
+//           temperature: 0.3,
+//         },
+//       }),
+//     }
+//   );
+
+//   if (!res || !res.ok) {
+//     let errorText = 'Unknown Gemini error';
+
+//     try {
+//       errorText = await res.text();
+//     } catch {
+//       // ignore
+//     }
+
+//     console.error(
+//       'Gemini API Error:',
+//       res?.status,
+//       errorText
+//     );
+//     console.log("Gemini Request Sent");
+
+//     if (res?.status === 503) {
+//       throw new Error(
+//         'Gemini model is temporarily overloaded. Please try again in a few seconds.'
+//       );
+//     }
+
+//     if (res?.status === 429) {
+//       throw new Error(
+//         'Gemini quota exhausted or rate limit reached.'
+//       );
+//     }
+
+//     if (res?.status === 401) {
+//       throw new Error(
+//         'Invalid Gemini API key.'
+//       );
+//     }
+
+//     if (res?.status === 403) {
+//       throw new Error(
+//         'Gemini API access denied.'
+//       );
+//     }
+
+//     throw new Error(
+//       errorText || `Gemini API error ${res?.status}`
+//     );
+//   }
+
+//   const data = await res.json();
+
+//   return (
+//     data?.candidates?.[0]?.content?.parts
+//       ?.map(part => part.text || '')
+//       ?.join('') || ''
+//   );
+// }
+
+// /**
+//  * Simulated streaming for UI components
+//  */
+// export async function callClaudeStream({
+//   system,
+//   messages,
+//   maxTokens = 4000,
+//   onChunk,
+//   onDone,
+// }) {
+//   const fullText = await callClaude({
+//     system,
+//     messages,
+//     maxTokens,
+//   });
+
+//   const chunkSize = 25;
+
+//   for (
+//     let i = 0;
+//     i < fullText.length;
+//     i += chunkSize
+//   ) {
+//     const chunk = fullText.slice(
+//       i,
+//       i + chunkSize
+//     );
+
+//     const partial = fullText.slice(
+//       0,
+//       i + chunkSize
+//     );
+
+//     onChunk?.(chunk, partial);
+
+//     await new Promise(resolve =>
+//       setTimeout(resolve, 10)
+//     );
+//   }
+
+//   onDone?.(fullText);
+
+//   return fullText;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Microsoft Foundry (OpenAI v1 Responses API)
+
+const AZURE_ENDPOINT = import.meta.env.VITE_AZURE_OPENAI_ENDPOINT;
+const AZURE_KEY = import.meta.env.VITE_AZURE_OPENAI_KEY;
+const DEPLOYMENT =
+  import.meta.env.VITE_AZURE_OPENAI_DEPLOYMENT || "gpt-4.1-mini";
+
+function getUrl() {
+  return `${AZURE_ENDPOINT}/openai/v1/responses`;
+}
+
 async function fetchWithRetry(url, options, retries = 3) {
-  let lastResponse = null;
-
   for (let i = 0; i < retries; i++) {
     try {
       const res = await fetch(url, options);
 
-      if (res.ok) {
-        return res;
-      }
+      if (res.ok) return res;
 
-      lastResponse = res;
-
-      // Retry only for temporary server issues
       if (
-        (res.status === 503 || res.status === 500) &&
+        (res.status === 500 || res.status === 503) &&
         i < retries - 1
       ) {
-        const delay = 2000 * (i + 1);
-
-        console.warn(
-          `Gemini temporary error (${res.status}). Retrying in ${delay}ms...`
-        );
-
-        await new Promise(resolve => setTimeout(resolve, delay));
+        await new Promise((r) => setTimeout(r, 2000 * (i + 1)));
         continue;
       }
 
       return res;
     } catch (err) {
-      console.error('Network error:', err);
-
       if (i < retries - 1) {
-        const delay = 2000 * (i + 1);
-        await new Promise(resolve => setTimeout(resolve, delay));
+        await new Promise((r) => setTimeout(r, 2000 * (i + 1)));
         continue;
       }
-
       throw err;
     }
   }
-
-  return lastResponse;
 }
 
-/**
- * Standard Gemini call
- */
 export async function callClaude({
   system,
   messages,
   maxTokens = 1500,
 }) {
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-
-  if (!apiKey) {
-    throw new Error(
-      'VITE_GEMINI_API_KEY not found in .env file'
-    );
+  if (!AZURE_ENDPOINT || !AZURE_KEY) {
+    throw new Error("Azure Foundry environment variables are missing.");
   }
 
-  const prompt = [
-    system,
-    ...messages.map(
-      m =>
-        `${m.role}: ${
-          typeof m.content === 'string'
-            ? m.content
-            : JSON.stringify(m.content)
-        }`
-    ),
-  ].join('\n\n');
-
-  const res = await fetchWithRetry(
-    `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`,
+  const input = [
     {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: prompt,
-              },
-            ],
-          },
-        ],
-        generationConfig: {
-          maxOutputTokens: maxTokens,
-          temperature: 0.3,
-        },
-      }),
-    }
-  );
+      role: "system",
+      content: system,
+    },
+    ...messages.map((m) => ({
+      role: m.role === "assistant" ? "assistant" : "user",
+      content:
+        typeof m.content === "string"
+          ? m.content
+          : JSON.stringify(m.content),
+    })),
+  ];
 
-  if (!res || !res.ok) {
-    let errorText = 'Unknown Gemini error';
+  const res = await fetchWithRetry(getUrl(), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "api-key": AZURE_KEY,
+    },
+    body: JSON.stringify({
+      model: DEPLOYMENT,
+      input,
+      max_output_tokens: maxTokens,
+    }),
+  });
 
-    try {
-      errorText = await res.text();
-    } catch {
-      // ignore
-    }
+  if (!res.ok) {
+    const err = await res.text();
 
-    console.error(
-      'Gemini API Error:',
-      res?.status,
-      errorText
-    );
-    console.log("Gemini Request Sent");
+    console.error("Azure Error:", err);
 
-    if (res?.status === 503) {
-      throw new Error(
-        'Gemini model is temporarily overloaded. Please try again in a few seconds.'
-      );
-    }
+    if (res.status === 401)
+      throw new Error("Invalid API key.");
 
-    if (res?.status === 429) {
-      throw new Error(
-        'Gemini quota exhausted or rate limit reached.'
-      );
-    }
+    if (res.status === 403)
+      throw new Error("Access denied.");
 
-    if (res?.status === 401) {
-      throw new Error(
-        'Invalid Gemini API key.'
-      );
-    }
+    if (res.status === 404)
+      throw new Error("Endpoint or deployment not found.");
 
-    if (res?.status === 403) {
-      throw new Error(
-        'Gemini API access denied.'
-      );
-    }
+    if (res.status === 429)
+      throw new Error("Rate limit exceeded.");
 
-    throw new Error(
-      errorText || `Gemini API error ${res?.status}`
-    );
+    throw new Error(err);
   }
 
   const data = await res.json();
 
+  console.log("Azure Response:", data);
+
   return (
-    data?.candidates?.[0]?.content?.parts
-      ?.map(part => part.text || '')
-      ?.join('') || ''
+    data.output?.[0]?.content?.[0]?.text ??
+    ""
   );
 }
 
-/**
- * Simulated streaming for UI components
- */
 export async function callClaudeStream({
   system,
   messages,
-  maxTokens = 4000,
+  maxTokens = 1500,
   onChunk,
   onDone,
 }) {
-  const fullText = await callClaude({
+  const text = await callClaude({
     system,
     messages,
     maxTokens,
@@ -640,29 +800,15 @@ export async function callClaudeStream({
 
   const chunkSize = 25;
 
-  for (
-    let i = 0;
-    i < fullText.length;
-    i += chunkSize
-  ) {
-    const chunk = fullText.slice(
-      i,
-      i + chunkSize
-    );
+  for (let i = 0; i < text.length; i += chunkSize) {
+    const chunk = text.slice(i, i + chunkSize);
 
-    const partial = fullText.slice(
-      0,
-      i + chunkSize
-    );
+    onChunk?.(chunk, text.slice(0, i + chunkSize));
 
-    onChunk?.(chunk, partial);
-
-    await new Promise(resolve =>
-      setTimeout(resolve, 10)
-    );
+    await new Promise((r) => setTimeout(r, 10));
   }
 
-  onDone?.(fullText);
+  onDone?.(text);
 
-  return fullText;
+  return text;
 }

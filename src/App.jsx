@@ -127,7 +127,78 @@
 
 
 
-// App.jsx
+// // App.jsx
+// import React, { useState } from 'react';
+// import Sidebar         from './components/Sidebar.jsx';
+// import DashboardModule from './pages/Dashboard/index.jsx';
+// import PlatformModule  from './pages/PlatformAssistant/index.jsx';
+// import DocsModule      from './pages/DocumentationIntelligence/index.jsx';
+// import LogsModule      from './pages/LogExplorer/index.jsx';
+// import IncidentModule  from './pages/IncidentCopilot/index.jsx';
+// import { IncidentProvider } from './pages/IncidentCopilot/IncidentContext.jsx';
+
+// const MODULES = {
+//   dashboard: DashboardModule,
+//   platform:  PlatformModule,
+//   docs:      DocsModule,
+//   logs:      LogsModule,
+//   incident:  IncidentModule,
+// };
+
+// export default function App() {
+//   const [active, setActive] = useState('dashboard');
+//   const [selectedIncident, setSelectedIncident] = useState(null);
+//   const [platformTab, setPlatformTab] =
+//   useState('service');
+//   const [architectureInput, setArchitectureInput] =
+//   useState('');
+//   const Module = MODULES[active] || DashboardModule;
+//   const hasKey = Boolean(import.meta.env.VITE_GEMINI_API_KEY);
+
+//   return (
+//   <IncidentProvider>
+//     <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
+//       <Sidebar active={active} onNav={setActive} />
+//       <main style={{ marginLeft: 230, flex: 1, height: '100vh', overflowY: 'auto', background: 'var(--content-bg)' }}>
+//         {!hasKey && (
+//           <div style={{ background: '#fffbeb', borderBottom: '1px solid #fde68a', padding: '9px 28px', display: 'flex', alignItems: 'center', gap: 10 }}>
+//             <span style={{ fontSize: 14 }}>⚠</span>
+//             <span style={{ fontSize: 12, color: '#92400e' }}>
+//               <strong>VITE_GEMINI_API_KEY</strong> not set in <code>.env</code> — AI features will not work. See README.md.
+//             </span>
+//           </div>
+//         )}
+//         <div style={{ padding: '28px 32px', maxWidth: 1120, margin: '0 auto' }}>
+//           <Module
+//   key={active}
+//   active={active}
+//   setActive={setActive}
+//   selectedIncident={selectedIncident}
+//   setSelectedIncident={setSelectedIncident}
+//   defaultPlatformTab={platformTab}
+//   setPlatformTab={setPlatformTab}
+//   architectureInput={architectureInput}
+//   setArchitectureInput={setArchitectureInput}
+// />
+//                 </div>
+//       </main>
+//     </div>
+//   </IncidentProvider>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState } from 'react';
 import Sidebar         from './components/Sidebar.jsx';
 import DashboardModule from './pages/Dashboard/index.jsx';
@@ -148,41 +219,48 @@ const MODULES = {
 export default function App() {
   const [active, setActive] = useState('dashboard');
   const [selectedIncident, setSelectedIncident] = useState(null);
-  const [platformTab, setPlatformTab] =
-  useState('service');
-  const [architectureInput, setArchitectureInput] =
-  useState('');
+  const [platformTab, setPlatformTab] = useState('service');
+  const [architectureInput, setArchitectureInput] = useState('');
+
   const Module = MODULES[active] || DashboardModule;
-  const hasKey = Boolean(import.meta.env.VITE_GEMINI_API_KEY);
+
+  // ✅ CHANGED: was VITE_GEMINI_API_KEY
+  const hasKey = Boolean(import.meta.env.VITE_AZURE_OPENAI_KEY);
 
   return (
-  <IncidentProvider>
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
-      <Sidebar active={active} onNav={setActive} />
-      <main style={{ marginLeft: 230, flex: 1, height: '100vh', overflowY: 'auto', background: 'var(--content-bg)' }}>
-        {!hasKey && (
-          <div style={{ background: '#fffbeb', borderBottom: '1px solid #fde68a', padding: '9px 28px', display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 14 }}>⚠</span>
-            <span style={{ fontSize: 12, color: '#92400e' }}>
-              <strong>VITE_GEMINI_API_KEY</strong> not set in <code>.env</code> — AI features will not work. See README.md.
-            </span>
+    <IncidentProvider>
+      <div style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
+        <Sidebar active={active} onNav={setActive} />
+        <main style={{
+          marginLeft: 230, flex: 1, height: '100vh',
+          overflowY: 'auto', background: 'var(--content-bg)',
+        }}>
+          {!hasKey && (
+            <div style={{
+              background: '#fffbeb', borderBottom: '1px solid #fde68a',
+              padding: '9px 28px', display: 'flex', alignItems: 'center', gap: 10,
+            }}>
+              <span style={{ fontSize: 14 }}>⚠</span>
+              <span style={{ fontSize: 12, color: '#92400e' }}>
+                <strong>VITE_AZURE_OPENAI_KEY</strong> not set in <code>.env</code> — AI features will not work. See README.md.
+              </span>
+            </div>
+          )}
+          <div style={{ padding: '28px 32px', maxWidth: 1120, margin: '0 auto' }}>
+            <Module
+              key={active}
+              active={active}
+              setActive={setActive}
+              selectedIncident={selectedIncident}
+              setSelectedIncident={setSelectedIncident}
+              defaultPlatformTab={platformTab}
+              setPlatformTab={setPlatformTab}
+              architectureInput={architectureInput}
+              setArchitectureInput={setArchitectureInput}
+            />
           </div>
-        )}
-        <div style={{ padding: '28px 32px', maxWidth: 1120, margin: '0 auto' }}>
-          <Module
-  key={active}
-  active={active}
-  setActive={setActive}
-  selectedIncident={selectedIncident}
-  setSelectedIncident={setSelectedIncident}
-  defaultPlatformTab={platformTab}
-  setPlatformTab={setPlatformTab}
-  architectureInput={architectureInput}
-  setArchitectureInput={setArchitectureInput}
-/>
-                </div>
-      </main>
-    </div>
-  </IncidentProvider>
+        </main>
+      </div>
+    </IncidentProvider>
   );
 }
