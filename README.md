@@ -175,7 +175,7 @@ Postmortem Documentation
 
 The following diagram illustrates the overall architecture and workflow of OpsCopilot. Microsoft Azure AI Foundry (GPT-4.1-mini) serves as the central AI engine powering all AI capabilities across the platform.
 
-![OpsCopilot Architecture](screenshots/opscopilot_architecture_diagram.png)
+![OpsCopilot Architecture](screenshots/architecture_diagram.png)
 
 ## 🛠️ Technology Stack
 
