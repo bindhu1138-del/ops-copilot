@@ -63,7 +63,7 @@ Real-time system health monitoring for `ap-south-1 · production` with active in
 
 ### Platform Assistant — Service Setup
 
-![Platform Assistant](screenshots/PlatformAssistant.png)
+![Platform Assistant](screenshots/Platform%20Assistant.png)
 
 AI-powered setup guidance for services. Enter a natural language prompt and get step-by-step environment configuration instructions.
 
