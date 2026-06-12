@@ -63,7 +63,7 @@ Real-time system health monitoring for `ap-south-1 · production` with active in
 
 ### Platform Assistant — Service Setup
 
-![Platform Assistant](screenshots/Platform Assistant.png)
+![Platform Assistant](screenshots/PlatformAssistant.png)
 
 AI-powered setup guidance for services. Enter a natural language prompt and get step-by-step environment configuration instructions.
 
@@ -71,7 +71,7 @@ AI-powered setup guidance for services. Enter a natural language prompt and get 
 
 ### Documentation Intelligence — Doc Drift
 
-![Documentation Intelligence](screenshots/Documentation Intelligence.png)
+![Documentation Intelligence](screenshots/DocumentationIntelligence.png)
 
 Side-by-side comparison of README documentation vs. actual `package.json` / `.env` configuration to detect and surface mismatches.
 
@@ -79,7 +79,7 @@ Side-by-side comparison of README documentation vs. actual `package.json` / `.en
 
 ### Log Explorer — Log Analyzer
 
-![Log Explorer](screenshots/Log Explorer.png)
+![Log Explorer](screenshots/LogExplorer.png)
 
 Natural language → AI-generated CloudWatch query → real log fetch → AI root cause analysis pipeline, powered by Gemini AI + CloudWatch.
 
@@ -87,7 +87,7 @@ Natural language → AI-generated CloudWatch query → real log fetch → AI roo
 
 ### Incident Copilot — Evidence Correlation
 
-![Incident Copilot](screenshots/Incident Copilot.png)
+![Incident Copilot](screenshots/IncidentCopilot.png)
 
 Multi-step incident investigation workflow: Evidence Correlation → Log Analysis → RCA → Runbook Generation → Recovery Actions → Commander → Postmortem.
 
