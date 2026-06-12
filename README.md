@@ -55,7 +55,7 @@ The platform integrates Microsoft Azure AI Foundry to power natural language log
 
 ### Dashboard — Health Overview
 
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/Dashboard.png)
 
 Real-time system health monitoring for `ap-south-1 · production` with active incident tracking, P99 latency, error rates, and per-service health status.
 
@@ -63,7 +63,7 @@ Real-time system health monitoring for `ap-south-1 · production` with active in
 
 ### Platform Assistant — Service Setup
 
-![Platform Assistant](screenshots/platform-assistant.png)
+![Platform Assistant](screenshots/Platform Assistant.png)
 
 AI-powered setup guidance for services. Enter a natural language prompt and get step-by-step environment configuration instructions.
 
@@ -71,7 +71,7 @@ AI-powered setup guidance for services. Enter a natural language prompt and get 
 
 ### Documentation Intelligence — Doc Drift
 
-![Documentation Intelligence](screenshots/documentation-intelligence.png)
+![Documentation Intelligence](screenshots/Documentation Intelligence.png)
 
 Side-by-side comparison of README documentation vs. actual `package.json` / `.env` configuration to detect and surface mismatches.
 
@@ -79,7 +79,7 @@ Side-by-side comparison of README documentation vs. actual `package.json` / `.en
 
 ### Log Explorer — Log Analyzer
 
-![Log Explorer](screenshots/log-explorer.png)
+![Log Explorer](screenshots/Log Explorer.png)
 
 Natural language → AI-generated CloudWatch query → real log fetch → AI root cause analysis pipeline, powered by Gemini AI + CloudWatch.
 
@@ -87,7 +87,7 @@ Natural language → AI-generated CloudWatch query → real log fetch → AI roo
 
 ### Incident Copilot — Evidence Correlation
 
-![Incident Copilot](screenshots/incident-copilot.png)
+![Incident Copilot](screenshots/Incident Copilot.png)
 
 Multi-step incident investigation workflow: Evidence Correlation → Log Analysis → RCA → Runbook Generation → Recovery Actions → Commander → Postmortem.
 
