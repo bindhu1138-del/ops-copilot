@@ -71,7 +71,7 @@ AI-powered setup guidance for services. Enter a natural language prompt and get 
 
 ### Documentation Intelligence — Doc Drift
 
-![Documentation Intelligence](screenshots/DocumentationIntelligence.png)
+![Documentation Intelligence](screenshots/Documentation%20Intelligence.png)
 
 Side-by-side comparison of README documentation vs. actual `package.json` / `.env` configuration to detect and surface mismatches.
 
@@ -79,7 +79,7 @@ Side-by-side comparison of README documentation vs. actual `package.json` / `.en
 
 ### Log Explorer — Log Analyzer
 
-![Log Explorer](screenshots/LogExplorer.png)
+![Log Explorer](screenshots/Log%20Explorer.png)
 
 Natural language → AI-generated CloudWatch query → real log fetch → AI root cause analysis pipeline, powered by Gemini AI + CloudWatch.
 
@@ -87,7 +87,7 @@ Natural language → AI-generated CloudWatch query → real log fetch → AI roo
 
 ### Incident Copilot — Evidence Correlation
 
-![Incident Copilot](screenshots/IncidentCopilot.png)
+![Incident Copilot](screenshots/Incident%20Copilot.png)
 
 Multi-step incident investigation workflow: Evidence Correlation → Log Analysis → RCA → Runbook Generation → Recovery Actions → Commander → Postmortem.
 
