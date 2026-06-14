@@ -94,7 +94,7 @@ Side-by-side comparison of README documentation vs. actual `package.json` / `.en
 
 ![Log Explorer](screenshots/Log%20Explorer.png)
 
-Natural language → AI-generated CloudWatch query → real log fetch → AI root cause analysis pipeline, powered by Azure AI Foundary + CloudWatch.
+Natural language → AI-generated CloudWatch query → real log fetch → AI root cause analysis pipeline, powered by Azure AI Foundry + CloudWatch.
 
 ---
 
