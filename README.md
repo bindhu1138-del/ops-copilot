@@ -50,6 +50,13 @@ The platform integrates Microsoft Azure AI Foundry to power natural language log
 | 🚨 **Incident Copilot** | Correlates logs, deployments, and metrics to generate Root Cause Analysis (RCA) and recovery recommendations. |
 
 ---
+## 📺 Demo Video
+
+A walkthrough video demonstrating the full OpsCopilot platform — Dashboard, Log Explorer, Incident Copilot, Documentation Intelligence, and Platform Assistant in action.
+
+> **[▶ Watch Demo](https://vimeo.com/1199205683)**
+
+---
 
 ## 📸 Screenshots
 
