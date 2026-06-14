@@ -425,7 +425,7 @@ Future versions may include:
 
 ### Challenge Category
 
-🧠 AI-Powered Operations & Observability
+🧠 Reasoning Agents
 
 ### Demonstrated Capabilities
 
