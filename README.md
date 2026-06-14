@@ -1,5 +1,11 @@
 # 🛡️ OpsCopilot — AI Operations & Observability Platform
 
+![Azure AI Foundry](https://img.shields.io/badge/Azure%20AI-Foundry-0078D4?style=flat-round&logo=microsoftazure&logoColor=white)
+![React](https://img.shields.io/badge/Built%20with-React%2018-61DAFB?style=flat-round&logo=react&logoColor=black)
+![GPT-4.1-mini](https://img.shields.io/badge/Model-GPT--4.1--mini-0078D4?style=flat-round&logo=openai&logoColor=white)
+
+> An AI-powered SRE copilot that unifies log analysis, incident investigation, documentation drift detection and setup guidance in a single conversational interface powered by Azure AI Foundry.
+
 ## 🚀 Overview
 
 OpsCopilot is an AI-powered operations copilot that acts as an intelligent assistant for developers and Site Reliability Engineers (SREs). It eliminates manual context-switching between CloudWatch, Grafana, Kibana, deployment dashboards, and documentation portals by providing a **single conversational interface** powered by **Microsoft Azure AI Foundry (GPT-4.1-mini)**.
@@ -88,7 +94,7 @@ Side-by-side comparison of README documentation vs. actual `package.json` / `.en
 
 ![Log Explorer](screenshots/Log%20Explorer.png)
 
-Natural language → AI-generated CloudWatch query → real log fetch → AI root cause analysis pipeline, powered by Gemini AI + CloudWatch.
+Natural language → AI-generated CloudWatch query → real log fetch → AI root cause analysis pipeline, powered by Azure AI Foundary + CloudWatch.
 
 ---
 
@@ -447,9 +453,18 @@ By combining real-time observability, AI-powered incident investigation, natural
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Team Members
 
-Built for the **Microsoft AI / Foundry Hackathon**.
+**Sai Sreeja** — Built for the **Microsoft Agents League Hackathon 2026**
+
+- MS Learn: [Sai Sreeja]([https://learn.microsoft.com/en-us/users/YOUR_USERNAME](https://learn.microsoft.com/en-us/users/saisreejaanumulapuri-5246/))
+- GitHub: [Your GitHub](https://github.com/bindhu1138-del)
+
+---
+
+## ⚠️ Disclaimer
+
+> This tool provides AI-powered operational assistance to support SRE workflows. It is a decision-support aid, not a substitute for professional infrastructure review. All AI-generated RCA findings and recovery actions should be validated by qualified engineers before execution.
 
 ---
 
