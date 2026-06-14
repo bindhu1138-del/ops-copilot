@@ -457,9 +457,8 @@ By combining real-time observability, AI-powered incident investigation, natural
 
 **Sai Sreeja** — Built for the **Microsoft Agents League Hackathon 2026**
 
-- MS Learn: [Sai Sreeja]([https://learn.microsoft.com/en-us/users/YOUR_USERNAME](https://learn.microsoft.com/en-us/users/saisreejaanumulapuri-5246/))
-- GitHub: [Your GitHub](https://github.com/bindhu1138-del)
-
+- MS Learn: [Sai Sreeja](https://learn.microsoft.com/en-us/users/saisreejaanumulapuri-5246/)
+- GitHub: [bindhu1138-del](https://github.com/bindhu1138-del)
 ---
 
 ## ⚠️ Disclaimer
